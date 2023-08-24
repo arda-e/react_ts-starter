@@ -22,6 +22,10 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env', '@babel/preset-react'],
+              plugins: ['@babel/plugin-syntax-dynamic-import'],
+            },
           },
         ],
       },
@@ -42,8 +46,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '..', './build'),
-    filename: 'bundle.js',
-    publicPath: '/',
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].chunk.js',
   },
   plugins: [
     new CopyPlugin({
@@ -55,4 +59,20 @@ module.exports = {
     new Dotenv(),
   ],
   stats: 'errors-only',
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        react: {
+          test: /[\\/]node_modules[\\/]((react).*)[\\/]/,
+          name: 'react',
+          chunks: 'all',
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/]((?!react).*)[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
 }

@@ -8,4 +8,4 @@ const About = (): ReactElement => {
   )
 }
 
-export { About }
+export default About
