@@ -14,4 +14,4 @@ const Layout = (): ReactElement => {
   )
 }
 
-export default Layout
+export { Layout }
