@@ -7,15 +7,15 @@ export interface ApiResponse<T> {
   isFetching: boolean
 }
 
-type UseApiResponse<T> = [ApiResponse<T>, (...args: unknown[]) => Promise<void>]
+type UseApiResponse<T> = [ApiResponse<T>, (...args: any[]) => Promise<void>]
 
-export function useApi<T>(serviceMethod: (...args: unknown[]) => AxiosPromise<T>): UseApiResponse<T> {
+export function useApi<T>(serviceMethod: (...args: any[]) => AxiosPromise<T>): UseApiResponse<T> {
   const [result, setResult] = useState<T | undefined>(undefined)
   const [isFetching, setFetching] = useState(false)
   const [error, setError] = useState<Error | undefined>(undefined)
 
   const apiCallback = useCallback(
-    async (...args: unknown[]): Promise<void> => {
+    async (...args: any[]): Promise<void> => {
       setError(undefined)
       setFetching(true)
       try {
