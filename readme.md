@@ -4,6 +4,7 @@ This project template provides a basic setup for building React applications wit
 
 ### Features
 - **React:** A JavaScript library for building user interfaces.
+- **Context API** React's built-in feature to manage app state globally.
 - **TypeScript:** A superset of JavaScript that adds static type-checking.
 - **ESLint:** A tool for identifying and fixing code issues following a set of rules.
 - **Prettier:** An opinionated code formatter for maintaining consistent code styles.
