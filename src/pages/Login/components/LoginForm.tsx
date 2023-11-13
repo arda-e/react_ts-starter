@@ -31,7 +31,8 @@ const LoginForm: FC<LoginFormProps> = ({ methods, onSubmit }) => {
             </>
           )}
           <Button
-            isSubmitting={isSubmitting}
+            text="Login"
+            isLoading={isSubmitting}
             isValid={isValid}
           />
         </form>

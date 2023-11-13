@@ -2,12 +2,13 @@ import React, { FC } from 'react'
 import { classNames } from '../../utils/helpers'
 
 interface ButtonProps {
-  isSubmitting: boolean
+  isLoading: boolean
   isValid: boolean
+  text: string
 }
 
 const Button: FC<ButtonProps> = (props) => {
-  const { isSubmitting, isValid } = props
+  const { isLoading, isValid, text } = props
   return (
     <>
       <button
@@ -19,8 +20,8 @@ const Button: FC<ButtonProps> = (props) => {
         )}
         type="submit"
       >
-        {isSubmitting && <div className="spinner">*</div>}
-        Login
+        {isLoading && <div className="spinner">*</div>}
+        {text}
       </button>
     </>
   )
