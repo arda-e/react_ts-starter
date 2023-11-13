@@ -3,6 +3,8 @@ import { Route, createBrowserRouter, createRoutesFromElements } from 'react-rout
 import { Home, PageNotFound } from '../pages'
 import { RequireAuth, ROLES } from '../utils'
 import { Layout } from '../layouts'
+import { Login } from './Login'
+import ErrorBoundary from '../utils/ErrorBoundary'
 
 const About = lazy(() => import(/* webpackChunkName: "about_lazy" */ './About/About'))
 const Admin = lazy(() => import(/* webpackChunkName: "admin_lazy" */ './Admin/Admin'))
@@ -12,6 +14,7 @@ export const router = createBrowserRouter(
     <Route
       path="/"
       element={<Layout />}
+      errorElement={<ErrorBoundary />}
     >
       {/* PUBLIC ROUTES */}
       <Route
@@ -21,6 +24,10 @@ export const router = createBrowserRouter(
       <Route
         path="about"
         element={<About />}
+      />
+      <Route
+        path="login"
+        element={<Login />}
       />
       {/* PROTECTED ROUTES */}
       <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
