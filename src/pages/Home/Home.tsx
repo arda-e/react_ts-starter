@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
 import { useNavigate } from 'react-router'
 import { useApi } from '../../hooks/'
-import { AuthApi } from '../../api'
+import { AuthApi } from '../../entities'
 
 const Home = (): ReactElement => {
   const navigate = useNavigate()
+
   const navigateToAbout = () => {
     navigate('/about')
   }
@@ -14,8 +15,6 @@ const Home = (): ReactElement => {
   const handleLogin = () => {
     login({ email: 'mericardaeren@gmail.com' })
   }
-
-  loginResponse.result?.halil
 
   return (
     <>

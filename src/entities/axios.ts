@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export default axios.create({
-  baseURL: 'https://supportapi.visiumlabs.com/api/v1',
+  baseURL: 'https://localhost:3000/api/v1',
 })

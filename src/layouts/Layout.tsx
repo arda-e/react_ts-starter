@@ -4,10 +4,7 @@ import { Outlet } from 'react-router'
 const Layout = (): ReactElement => {
   return (
     <>
-      <div
-        id="main-container"
-        className=""
-      >
+      <div id="main-container">
         <Outlet />
       </div>
     </>
