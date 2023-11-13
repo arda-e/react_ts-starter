@@ -4,25 +4,30 @@ import { useNavigate, NavigateFunction } from 'react-router'
 import { LoginCard, LoginForm } from './components'
 // HOOK & API IMPORTS
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import { useApi } from '../../hooks'
-import { AuthApi, AuthSchema } from '../../entities'
+import { useApi, useLocalStorage } from '../../hooks'
+import { AuthApi, AuthSchema, LoginResponse } from '../../entities'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-const navigateToHomeAndUpdateState = (navigate: NavigateFunction): void => {
-  // TODO: Update state
-  navigate('/home')
-}
+import { useAuth } from '../../hooks/useAuth'
 
 const Login = (): ReactElement => {
   const navigate = useNavigate()
+  const auth = useAuth()
 
-  const methods = useForm({
+  const methods = useForm<FieldValues>({
     resolver: zodResolver(AuthSchema),
-    mode: 'onBlur',
+    defaultValues: { email: '', password: '' },
   })
-  const [loginResponse, login] = useApi(AuthApi.login)
 
+  const [loginResponse, login] = useApi(AuthApi.login)
   const onSubmit: SubmitHandler<FieldValues> = (data) => login(data)
+
+  const [, setUser] = useLocalStorage<LoginResponse | null>('user', null)
+
+  const navigateToHomeAndUpdateState = (navigate: NavigateFunction): void => {
+    setUser(loginResponse?.result || null)
+    auth?.dispatch({ type: 'SET_USER', payload: loginResponse?.result })
+    navigate('/home')
+  }
 
   if (loginResponse.result) navigateToHomeAndUpdateState(navigate)
 
@@ -30,7 +35,6 @@ const Login = (): ReactElement => {
     <>
       <LoginCard>
         <LoginForm
-          //isLoading={loginResponse.isFetching}
           onSubmit={onSubmit}
           methods={methods}
         />
